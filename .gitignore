@@ -43,3 +43,28 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# .env files often contain sensitive information such as API keys, so it's a good practice to exclude them from version control.
+.env
+.env.local
+.env*.local
+.env.*.local
+
+# Credentials and secrets
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Firebase and Google services
+google-services.json
+GoogleService-Info.plist
+
+# API keys and tokens
+*.token
+*.apikey
+
+
