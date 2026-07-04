@@ -20,8 +20,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final ChatUser chatAI = ChatUser(id: '2', firstName: 'Groq AI');
 
   // Pull the key dynamically from the .env file instead of hardcoding it
-  final String groqApiKey = dotenv.env['GROQ_API_KEY'] ?? 'API_KEY_NOT_FOUND'; 
-  final String groqApiUrl = "https://api.groq.com/openai/v1/chat/completions";
+  final String groqApiKey = dotenv.env['OPENROUTER_API_KEY'] ?? 'API_KEY_NOT_FOUND'; 
+  final String groqApiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
   Future<void> getChatAIResponse(ChatMessage m) async {
     setState(() {
@@ -42,11 +42,20 @@ class _ChatScreenState extends State<ChatScreen> {
         Uri.parse(groqApiUrl),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer $groqApiKey", // Safely using the injected key
+          "Authorization": "Bearer $OPENROUTER_API_KEY", // Safely using the injected key
         },
         body: jsonEncode({
-          "model": "llama3-8b-8192", 
-          "messages": messageHistory,
+          "model": "meta-llama/llama-3.2-3b-instruct", 
+          "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful AI assistant;"
+        },
+        {
+          "role": "user",
+          "content": "Hello, who won the world cup 2022 ?"
+        }
+      ]
         }),
       );
 
