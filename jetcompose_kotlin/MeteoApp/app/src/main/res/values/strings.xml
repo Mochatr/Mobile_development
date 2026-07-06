@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">My Weather</string>
     <string name="search">Rechercher</string>
-    <!-- Remplacer par votre propre cle API OpenWeather (https://openweathermap.org/api) -->
-    <string name="openweather_api_key">VOTRE_CLE_API_ICI</string>
 </resources>

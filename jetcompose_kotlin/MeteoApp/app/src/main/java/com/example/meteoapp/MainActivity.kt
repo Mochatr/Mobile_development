@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         data.clear()
         model.notifyDataSetChanged()
 
-        val apiKey = getString(R.string.openweather_api_key)
+        val apiKey = BuildConfig.OPENWEATHER_API_KEY
         val queue = Volley.newRequestQueue(applicationContext)
         val url = "https://api.openweathermap.org/data/2.5/forecast?q=$ville&appid=$apiKey"
 
