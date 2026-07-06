@@ -1,0 +1,36 @@
+# Build outputs
+*.apk
+*.aab
+*.ap_
+*.dex
+**/build/
+**/.gradle/
+.gradle/
+
+# Local configuration (machine-specific, never commit)
+local.properties
+**/local.properties
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.hprof
+.cxx/
+captures/
+.externalNativeBuild/
+
+# OS / archive extraction junk
+__MACOSX/
+.DS_Store
+Thumbs.db
+*.zip
+
+# Redundant course material (see files.md for the canonical link)
+*.pdf
+
+# Misc stray snippet files
+/jetcompose_kotlin/class
+/jetcompose_kotlin/Layout.xml
