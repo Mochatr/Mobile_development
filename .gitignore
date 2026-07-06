@@ -28,5 +28,6 @@ __MACOSX/
 Thumbs.db
 *.zip
 
-# Redundant course material (see files.md for the canonical link)
+# Course material (kept locally only, not part of the repo)
 *.pdf
+/jetcompose_kotlin/files.md
