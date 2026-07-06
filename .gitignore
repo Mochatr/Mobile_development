@@ -30,7 +30,3 @@ Thumbs.db
 
 # Redundant course material (see files.md for the canonical link)
 *.pdf
-
-# Misc stray snippet files
-/jetcompose_kotlin/class
-/jetcompose_kotlin/Layout.xml
