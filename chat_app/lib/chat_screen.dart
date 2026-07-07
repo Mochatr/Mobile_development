@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
           "X-Title": "Chat App",
         },
         body: jsonEncode({
-          "model": "meta-llama/llama-3.2-3b-instruct:free",
+          "model": "openai/gpt-oss-20b:free",
           "messages": [
             {"role": "system", "content": "You are a helpful AI assistant."},
             ...messageHistory,

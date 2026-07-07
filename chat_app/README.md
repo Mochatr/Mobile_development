@@ -17,4 +17,4 @@ Mini chat IA base sur `dash_chat_2` et l'API OpenRouter (`https://openrouter.ai/
    flutter run
    ```
 
-Le modele utilise par defaut est `meta-llama/llama-3.2-3b-instruct:free` (gratuit sur OpenRouter). Si la cle est absente, l'app affiche un message d'erreur dans le chat au lieu d'echouer silencieusement.
+Le modele utilise par defaut est `openai/gpt-oss-20b:free` (gratuit sur OpenRouter). Si la cle est absente, l'app affiche un message d'erreur dans le chat au lieu d'echouer silencieusement.
