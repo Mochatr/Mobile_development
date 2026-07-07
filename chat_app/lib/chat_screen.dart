@@ -20,8 +20,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final ChatUser chatAI = ChatUser(id: '2', firstName: 'Groq AI');
 
   // Pull the key dynamically from the .env file instead of hardcoding it
-  final String groqApiKey = dotenv.env['OPENROUTER_API_KEY'] ?? 'API_KEY_NOT_FOUND'; 
-  final String groqApiUrl = "https://openrouter.ai/api/v1/chat/completions";
+  final String openRouterApiKey = dotenv.env['OPENROUTER_API_KEY'] ?? '';
+  final String openRouterApiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
   Future<void> getChatAIResponse(ChatMessage m) async {
     setState(() {
@@ -29,7 +29,22 @@ class _ChatScreenState extends State<ChatScreen> {
       _typingUsers.add(chatAI); // Show typing indicator
     });
 
-    // Format chat history for the Groq API payload
+    if (openRouterApiKey.isEmpty) {
+      setState(() {
+        _typingUsers.remove(chatAI);
+        _messages.insert(
+          0,
+          ChatMessage(
+            user: chatAI,
+            createdAt: DateTime.now(),
+            text: "Missing OPENROUTER_API_KEY: add it to the .env file at the project root.",
+          ),
+        );
+      });
+      return;
+    }
+
+    // Format chat history for the OpenRouter API payload
     List<Map<String, String>> messageHistory = _messages.reversed.map((msg) {
       return {
         "role": msg.user.id == currentUser.id ? "user" : "assistant",
@@ -39,23 +54,20 @@ class _ChatScreenState extends State<ChatScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse(groqApiUrl),
+        Uri.parse(openRouterApiUrl),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer $OPENROUTER_API_KEY", // Safely using the injected key
+          "Authorization": "Bearer $openRouterApiKey", // Safely using the injected key
+          // Recommended by OpenRouter to identify the app on their dashboard.
+          "HTTP-Referer": "https://github.com/Mochatr/Mobile-development",
+          "X-Title": "Chat App",
         },
         body: jsonEncode({
-          "model": "meta-llama/llama-3.2-3b-instruct", 
+          "model": "meta-llama/llama-3.2-3b-instruct:free",
           "messages": [
-        {
-          "role": "system",
-          "content": "You are a helpful AI assistant;"
-        },
-        {
-          "role": "user",
-          "content": "Hello, who won the world cup 2022 ?"
-        }
-      ]
+            {"role": "system", "content": "You are a helpful AI assistant."},
+            ...messageHistory,
+          ],
         }),
       );
 
@@ -75,9 +87,29 @@ class _ChatScreenState extends State<ChatScreen> {
         });
       } else {
         debugPrint("Error: ${response.statusCode} - ${response.body}");
+        setState(() {
+          _messages.insert(
+            0,
+            ChatMessage(
+              user: chatAI,
+              createdAt: DateTime.now(),
+              text: "Error ${response.statusCode}: request to OpenRouter failed.",
+            ),
+          );
+        });
       }
     } catch (e) {
       debugPrint("Exception caught: $e");
+      setState(() {
+        _messages.insert(
+          0,
+          ChatMessage(
+            user: chatAI,
+            createdAt: DateTime.now(),
+            text: "Network error: could not reach OpenRouter.",
+          ),
+        );
+      });
     } finally {
       setState(() {
         _typingUsers.remove(chatAI); // Hide typing indicator
