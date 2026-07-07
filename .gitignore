@@ -17,6 +17,7 @@ local.properties
 *.ipr
 *.iws
 .vscode/
+.claude/
 *.hprof
 .cxx/
 captures/
