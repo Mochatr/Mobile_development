@@ -134,6 +134,10 @@ class _ChatScreenState extends State<ChatScreen> {
           currentUserContainerColor: Colors.blueGrey,
           containerColor: Color.fromARGB(255, 230, 230, 230),
         ),
+        inputOptions: const InputOptions(
+          sendOnEnter: true,
+          textInputAction: TextInputAction.send,
+        ),
         onSend: (ChatMessage m) {
           getChatAIResponse(m);
         },
