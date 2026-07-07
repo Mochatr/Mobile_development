@@ -12,7 +12,7 @@ class Personne {
 class Salarie extends Personne {
   double salaire;
 
-  Salarie(String nom, int age, this.salaire) : super(nom, age);
+  Salarie(super.nom, super.age, this.salaire);
 
   @override
   void sePresenter() {
