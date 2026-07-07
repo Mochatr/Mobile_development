@@ -19,5 +19,14 @@ cd flutter_project/flutter_part2/synthesis_app
 flutter run
 ```
 
-Applications a venir :
-- Exemples Dart POO (classes, heritage, polymorphisme, gestion d'erreurs)
+## dart_oop_examples
+
+Exemples Dart console (issus de `Dart_examples.docx` et du support de cours) : classes/constructeurs, heritage/polymorphisme, gestion des erreurs.
+
+Pour lancer :
+```
+cd flutter_project/flutter_part2/dart_oop_examples
+dart run bin/classes_constructors.dart
+dart run bin/inheritance_polymorphism.dart
+dart run bin/error_handling.dart
+```
